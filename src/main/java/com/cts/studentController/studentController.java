@@ -6,14 +6,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.Model.StudentInfo;
 import com.cts.services.studentService;
-
-@Controller
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
+@RequestMapping("/api/students")
 public class studentController {
 @Autowired
 	private studentService studentservice;
@@ -23,37 +31,38 @@ public studentController(studentService studentservice)
 	this.studentservice=studentservice;
 }
 	
-	@GetMapping("/home")
-	public String login()
 	
-	{
-		
-		return "home";
-	}
 	
-	@GetMapping("/addfrom")
-	public String addform(Model model)
-	{
-		 model.addAttribute("student", new StudentInfo());
-		 return "addform";
-	}
-	@PostMapping("/savestudent")
-	public String Registration(@ModelAttribute("student")   StudentInfo studentinfo)
-	{
+	@PostMapping("/savestudent")	 
+	public StudentInfo Registration(@RequestBody   StudentInfo studentinfo)
+	{        
+		studentinfo.setId(null);	
 		
+		return studentservice.Registration(studentinfo);
 		
-			studentservice.Registration(studentinfo);
-			return "redirect:/home";
+			
 		
 	}
-	
 	@GetMapping("/getstudent")
-	public String GetStudent(Model model)
-	
+	public List<StudentInfo>   GetAllStudent()
 	{
-		List<StudentInfo> studentinfo= studentservice.showallstudent();
-		model.addAttribute("stud", studentinfo);
-		return "listofstudent";
+		return studentservice.GetAllStudent();
 	}
+	
+	
+	@PutMapping("/update/{id}")
+	public StudentInfo  UpdateStudent(@PathVariable String id, @RequestBody StudentInfo studentinfo )
+	{
+		return studentservice.UpdateStudent(id,studentinfo);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public  String DeleteStudent( @PathVariable  String id)
+	{
+		studentservice.deletestudent(id);
+		
+		return "delete";
+	}
+	
 	
 }

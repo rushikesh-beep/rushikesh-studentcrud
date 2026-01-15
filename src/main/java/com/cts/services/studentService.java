@@ -17,16 +17,33 @@ public class studentService {
 	@Autowired
 	private IstudentRepo studentrepo;
 	
-	public String Registration(StudentInfo studentinfo) {
+	public  StudentInfo  Registration(StudentInfo studentinfo) {
 		
-	  studentrepo.save(studentinfo);
-	  return"Succesfull";
+	 
+	  return  studentrepo.save(studentinfo);
 	}
 
-	public List<StudentInfo> showallstudent() {
+	public List<StudentInfo> GetAllStudent() {
 	
-		return  studentrepo.findAll();
+		return studentrepo.findAll() ;
 	}
+
+		public StudentInfo UpdateStudent(String id, StudentInfo studentinfo) {
+		
+			StudentInfo student= studentrepo.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
+			
+			student.setName(studentinfo.getName());
+			student.setCit(studentinfo.getCit());
+			student.setCourse(studentinfo.getCourse());
+			student.setFees(studentinfo.getFees());
+			return studentrepo.save(student);
+		}
+
+		public String deletestudent(String id) {
+			
+			 studentrepo.deleteById(id); 
+			 return "delete Succesfully";
+		}
 
 	
 	
