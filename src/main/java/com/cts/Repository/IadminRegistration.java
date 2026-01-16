@@ -9,4 +9,8 @@ import com.cts.Model.StudentInfo;
 @Repository
 public interface IadminRegistration extends MongoRepository<Authentication ,  String> {
 
+	
+	boolean existsByUsername(String username);
+	Authentication findByUsername(String username);
+	
 }
