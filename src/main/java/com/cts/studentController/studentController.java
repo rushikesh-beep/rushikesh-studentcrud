@@ -69,13 +69,11 @@ public studentController(studentService studentservice)
 	@GetMapping("/search")
     public Page<StudentInfo> search(
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String cit,
-            @RequestParam(required = false) String course,
-            @RequestParam(required = false) Integer fees,
+            
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return studentservice.search(name, cit, course, fees, page, size);
+        return studentservice.search(name, page, size);
     }
 
 	

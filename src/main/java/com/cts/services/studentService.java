@@ -38,10 +38,11 @@ public class studentService {
                 .orElseThrow(() -> new RuntimeException("Student not found"));
 
         student.setName(studentinfo.getName());
-        student.setCit(studentinfo.getCit());
         student.setCourse(studentinfo.getCourse());
-        student.setFees(studentinfo.getFees());
-
+        student.setCit(studentinfo.getCit());
+     
+        
+      
         return studentrepo.save(student);
     }
 
@@ -53,9 +54,7 @@ public class studentService {
    
     public Page<StudentInfo> search(
             String name,
-            String cit,
-            String course,
-            Integer fees,
+            
             int page,
             int size) {
 
@@ -65,17 +64,11 @@ public class studentService {
             query.addCriteria(Criteria.where("name").regex(name, "i"));
         }
 
-        if (cit != null && !cit.isEmpty()) {
-            query.addCriteria(Criteria.where("cit").regex(cit, "i"));
-        }
+       
 
-        if (course != null && !course.isEmpty()) {
-            query.addCriteria(Criteria.where("course").regex(course, "i"));
-        }
+       
 
-        if (fees != null) {
-            query.addCriteria(Criteria.where("fees").is(fees));
-        }
+        
 
         Pageable pageable = PageRequest.of(page, size);
         query.with(pageable);
