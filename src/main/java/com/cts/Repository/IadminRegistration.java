@@ -1,16 +1,19 @@
 package com.cts.Repository;
 
+import java.util.Optional;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cts.Model.Authentication;
+import com.cts.Model.Admin;
 import com.cts.Model.StudentInfo;
 
 @Repository
-public interface IadminRegistration extends MongoRepository<Authentication ,  String> {
+public interface IadminRegistration extends MongoRepository<Admin ,  String> {
 
 	
 	boolean existsByUsername(String username);
-	Authentication findByUsername(String username);
+	
+    Optional<Admin> findByUsername(String username);
 	
 }

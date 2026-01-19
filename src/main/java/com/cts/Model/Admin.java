@@ -4,49 +4,50 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Admin")
-public class Authentication {
+public class Admin {
 
     @Id
     private String id;
     private String name;
-    public Authentication(String id, String name, String username, String password, String role) {
-		super();
-		this.id = id;
-		name = name;
-		this.username = username;
-		this.password = password;
-		this.role = role;
-	}
-
-	@Override
-	public String toString() {
-		return "Authentication [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password
-				+ ", role=" + role + "]";
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		name = name;
-	}
-
-	private String username;
+    private String username;
     private String password;
     private String role;
+    
 
-   
-    public Authentication() {
+    public Admin() {
     }
 
-    // Getters and Setters
+    public Admin(String id, String name, String username, String password, String role) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Authentication [id=" + id +
+                ", name=" + name +
+                ", username=" + username +
+                ", role=" + role + "]";
+        // password intentionally excluded
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUsername() {

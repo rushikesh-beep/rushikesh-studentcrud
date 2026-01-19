@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cts.Model.Authentication;
+import com.cts.Model.Admin;
+import com.cts.Model.LoginRequest;
+import com.cts.Model.LoginResponce;
+import com.cts.services.CustomUserDetailsService;
 import com.cts.services.RegistrationService;
 
 @RestController
@@ -21,9 +24,12 @@ public class RegistrationController {
 	@Autowired
 	private  RegistrationService registrationservice;
 	
+	@Autowired
+	private CustomUserDetailsService customeservice;
+	
 	
 	@PostMapping("/register")
-	public  Authentication  Register(@RequestBody Authentication authentication)
+	public  Admin  Register(@RequestBody Admin authentication)
 	{   
 		
 		authentication.setId(null);
@@ -31,9 +37,9 @@ public class RegistrationController {
 	}
 	
 	@PostMapping("/login")
-	 public  Authentication login(@RequestBody  Authentication authentication )
+	 public  LoginResponce login(@RequestBody  LoginRequest authentication )
 	 {
-		 return registrationservice.login(authentication.getUsername(),authentication.getPassword());
+		 return registrationservice.login(authentication);
 	 }
 	
 	

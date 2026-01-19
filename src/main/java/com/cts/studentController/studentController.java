@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cts.Model.Authentication;
+import com.cts.Model.Admin;
 import com.cts.Model.StudentInfo;
 import com.cts.services.studentService;
 @CrossOrigin(origins = "http://localhost:4200")
@@ -35,17 +35,17 @@ public studentController(studentService studentservice)
 }
 	
 	
-	
-	@PostMapping("/savestudent")	 
-	public StudentInfo Registration(@RequestBody   StudentInfo studentinfo)
-	{        
-		studentinfo.setId(null);	
-		
-		return studentservice.Registration(studentinfo);
-		
-			
-		
-	}
+//	
+//	@PostMapping("/savestudent")	 
+//	public StudentInfo Registration(@RequestBody   StudentInfo studentinfo)
+//	{        
+//		studentinfo.setId(null);	
+//		
+//		return studentservice.Registration(studentinfo);
+//		
+//			
+//		
+//	}
 	@GetMapping("/getstudent")
 	public List<StudentInfo>   GetAllStudent()
 	{

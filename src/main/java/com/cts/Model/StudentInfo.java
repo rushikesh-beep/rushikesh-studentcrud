@@ -8,24 +8,37 @@ public class StudentInfo {
      @Id
 	private String id;
 	private String name;
-	public StudentInfo(String id, String name, String cit, String course, int fees) {
+	private  String course;
+	private String city;
+	private String fees;
+	private String username;
+	private String password;
+	private String role;
+	public StudentInfo(String id, String name, String course, String city, String fees, String username,
+			String password, String role) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.cit = cit;
 		this.course = course;
+		this.city = city;
 		this.fees = fees;
+		this.username = username;
+		this.password = password;
+		this.role = role;
 	}
-	@Override
-	public String toString() {
-		return "StudentInfo [id=" + id + ", name=" + name + ", cit=" + cit + ", course=" + course + ", fees=" + fees
-				+ "]";
-	}
+	
+	public StudentInfo() {}
+	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	@Override
+	public String toString() {
+		return "StudentInfo [id=" + id + ", name=" + name + ", course=" + course + ", city=" + city + ", fees=" + fees
+				+ ", username=" + username + ", password=" + password + ", role=" + role + "]";
 	}
 	public String getName() {
 		return name;
@@ -33,28 +46,41 @@ public class StudentInfo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getCit() {
-		return cit;
-	}
-	public void setCit(String cit) {
-		this.cit = cit;
-	}
 	public String getCourse() {
 		return course;
 	}
 	public void setCourse(String course) {
 		this.course = course;
 	}
-	public int getFees() {
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getFees() {
 		return fees;
 	}
-	public void setFees(int fees) {
+	public void setFees(String fees) {
 		this.fees = fees;
 	}
-	private String cit;
-	private String  course;
-	private int fees;
-	public StudentInfo() {
-    }
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	
 }

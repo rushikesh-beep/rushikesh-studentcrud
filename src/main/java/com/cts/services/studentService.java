@@ -39,7 +39,7 @@ public class studentService {
 
         student.setName(studentinfo.getName());
         student.setCourse(studentinfo.getCourse());
-        student.setCit(studentinfo.getCit());
+        student.setCity(studentinfo.getCity());
      
         
       

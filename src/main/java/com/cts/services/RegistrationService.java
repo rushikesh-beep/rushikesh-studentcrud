@@ -1,44 +1,119 @@
 package com.cts.services;
 
+import javax.naming.AuthenticationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cts.ExceptionHandler.HandlingExceptions;
 import com.cts.ExceptionHandler.loginException;
-import com.cts.Model.Authentication;
+import com.cts.Model.Admin;
+import com.cts.Model.LoginRequest;
+import com.cts.Model.LoginResponce;
 import com.cts.Repository.IadminRegistration;
+import com.cts.springsecurity.JwtUtil;
 
 @Service
 public class RegistrationService {
 @Autowired
 	private IadminRegistration adminrepo;
+private final PasswordEncoder passwordEncoder;
 	
+@Autowired
+private AuthenticationManager authenticationManager;
+
+@Autowired
+private JwtUtil jwtUtil;
+
+
+
+
+public RegistrationService(IadminRegistration adminrepo,
+                   PasswordEncoder passwordEncoder) {
+    this.adminrepo = adminrepo;
+    this.passwordEncoder = passwordEncoder;
+}
 	
-	
-	public  Authentication RegisterAdmin(Authentication authentication) {
+
+
+
+	public  Admin RegisterAdmin(Admin authentication) {
 	
         if (adminrepo.existsByUsername(authentication.getUsername())) {
             throw new HandlingExceptions("Username already exists");
         }
+        authentication.setPassword(passwordEncoder.encode(authentication.getPassword()));
 return  adminrepo.save(authentication);
 	}
 
 
 
-	public Authentication login(String username, String password) {
-		
-		Authentication admin=	 adminrepo.findByUsername(username) ;
-		
-		if(admin==null)
-		{
-			throw  new loginException("User Not Found");
-		}
-		
-		if(!admin.getPassword().equals(password) )
-		{
-			throw new loginException("PassWord Is Incorrect");
-		}
-		return admin;
+    public LoginResponce login(LoginRequest request) {
+
+       
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                request.getUsername(),
+                request.getPassword()
+            )
+        );
+
+       
+        Admin admin = adminrepo.findByUsername(request.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+     
+        String token = jwtUtil.generateToken(admin.getUsername());
+
+       
+        return new LoginResponce(
+                token,
+                admin.getUsername(),
+                admin.getRole()
+        );
+    }
 	}
 
-}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	
+//
+//
+//	public Admin login(String username, String password) {
+//		
+//		Admin admin=	 adminrepo.findByUsername(username) ;
+//		
+//		if(admin==null)
+//		{
+//			throw  new loginException("User Not Found");
+//		}
+//		
+//		if(!admin.getPassword().equals(password) )
+//		{
+//			throw new loginException("PassWord Is Incorrect");
+//		}
+//		return admin;
+//	}
+
+
