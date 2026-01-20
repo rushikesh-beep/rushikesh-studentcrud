@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,7 +26,7 @@ import com.cts.Model.StudentInfo;
 import com.cts.services.studentService;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/user")
 public class studentController {
 @Autowired
 	private studentService studentservice;
@@ -46,6 +48,7 @@ public studentController(studentService studentservice)
 //			
 //		
 //	}
+
 	@GetMapping("/getstudent")
 	public List<StudentInfo>   GetAllStudent()
 	{

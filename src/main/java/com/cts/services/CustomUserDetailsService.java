@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.cts.Model.Admin;
+import com.cts.Model.StudentInfo;
 import com.cts.Repository.IadminRegistration;
 
 @Service
@@ -17,7 +18,7 @@ public class CustomUserDetailsService   implements UserDetailsService  {
 	  public UserDetails loadUserByUsername(String username)
 	            throws UsernameNotFoundException {
 
-		Admin user = adminrepo.findByUsername(username)
+		StudentInfo user = adminrepo.findByUsername(username)
 	                .orElseThrow(() ->
 	                        new UsernameNotFoundException("User not found"));
 

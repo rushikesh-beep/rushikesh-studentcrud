@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cts.Model.Admin;
 import com.cts.Model.LoginRequest;
 import com.cts.Model.LoginResponce;
+import com.cts.Model.UserRegisterRequest;
 import com.cts.services.CustomUserDetailsService;
 import com.cts.services.RegistrationService;
 
@@ -29,11 +30,12 @@ public class RegistrationController {
 	
 	
 	@PostMapping("/register")
-	public  Admin  Register(@RequestBody Admin authentication)
+	public  String  Register(@RequestBody UserRegisterRequest authentication)
 	{   
 		
-		authentication.setId(null);
-		return registrationservice.RegisterAdmin(authentication);
+		
+		 registrationservice.RegisterAdmin(authentication);
+		 return"registerd";
 	}
 	
 	@PostMapping("/login")
@@ -44,3 +46,4 @@ public class RegistrationController {
 	
 	
 }
+	

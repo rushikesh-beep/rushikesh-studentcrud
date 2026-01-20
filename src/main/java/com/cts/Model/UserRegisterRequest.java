@@ -17,6 +17,8 @@ public class UserRegisterRequest {
 			this.department = department;
 			this.fees = fees;
 		}
+	    public UserRegisterRequest() {}
+	    
 		@Override
 		public String toString() {
 			return "UserRegisterRequest [name=" + name + ", username=" + username + ", password=" + password + ", city="
@@ -60,5 +62,5 @@ public class UserRegisterRequest {
 		}
 		private String city;
 	    private String department;
-	    private Integer fees;
+	    private int fees;
 }

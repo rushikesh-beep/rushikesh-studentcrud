@@ -13,6 +13,8 @@ import com.cts.ExceptionHandler.loginException;
 import com.cts.Model.Admin;
 import com.cts.Model.LoginRequest;
 import com.cts.Model.LoginResponce;
+import com.cts.Model.StudentInfo;
+import com.cts.Model.UserRegisterRequest;
 import com.cts.Repository.IadminRegistration;
 import com.cts.springsecurity.JwtUtil;
 
@@ -40,16 +42,32 @@ public RegistrationService(IadminRegistration adminrepo,
 
 
 
-	public  Admin RegisterAdmin(Admin authentication) {
+	public  String RegisterAdmin(UserRegisterRequest request) {
+		  if (adminrepo.existsByUsername(request.getUsername())) {
+		        throw new HandlingExceptions("Username already exists");
+		    }
+
+		    StudentInfo user = new StudentInfo();
+		    user.setName(request.getName());
+		    user.setUsername(request.getUsername());
+		    user.setPassword(passwordEncoder.encode(request.getPassword()));
+		    user.setCity(request.getCity());
+		    user.setCourse(request.getDepartment());
+		    user.setFees(request.getFees().toString());
+		    user.setRole("ROLE_USER");
+
+		    adminrepo.save(user);
+		    return "Success";
+    }
 	
-        if (adminrepo.existsByUsername(authentication.getUsername())) {
-            throw new HandlingExceptions("Username already exists");
-        }
-        authentication.setPassword(passwordEncoder.encode(authentication.getPassword()));
-return  adminrepo.save(authentication);
-	}
 
 
+	
+	
+	
+	
+	
+	
 
     public LoginResponce login(LoginRequest request) {
 
@@ -62,11 +80,11 @@ return  adminrepo.save(authentication);
         );
 
        
-        Admin admin = adminrepo.findByUsername(request.getUsername())
+        StudentInfo admin = adminrepo.findByUsername(request.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
      
-        String token = jwtUtil.generateToken(admin.getUsername());
+        String token = jwtUtil.generateToken(admin.getUsername(),admin.getRole());
 
        
         return new LoginResponce(

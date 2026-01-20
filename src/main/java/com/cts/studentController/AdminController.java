@@ -13,7 +13,7 @@ import com.cts.services.AdminService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api")
+@RequestMapping("/auth")
 public class AdminController {
 	@Autowired
 	private AdminService adminservice;

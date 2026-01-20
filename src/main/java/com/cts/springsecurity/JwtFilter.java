@@ -18,46 +18,70 @@ import com.cts.services.CustomUserDetailsService;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
-	  private final JwtUtil jwtUtil;
-	    private final CustomUserDetailsService userDetailsService;
 
-	    public JwtFilter(JwtUtil jwtUtil,  CustomUserDetailsService userDetailsService) {
-	        this.jwtUtil = jwtUtil;
-	        this.userDetailsService = userDetailsService;
-	    }
+    private final JwtUtil jwtUtil;
+    private final CustomUserDetailsService userDetailsService;
 
-	   
+    public JwtFilter(JwtUtil jwtUtil,
+                     CustomUserDetailsService userDetailsService) {
+        this.jwtUtil = jwtUtil;
+        this.userDetailsService = userDetailsService;
+    }
 
-	    @Override
-	    protected void doFilterInternal(HttpServletRequest request,
-	                                    HttpServletResponse response,
-	                                    FilterChain chain)
-	            throws ServletException, IOException {
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain)
+            throws ServletException, IOException {
 
-	        String header = request.getHeader("Authorization");
+        String path = request.getServletPath();
 
-	        if (header != null && header.startsWith("Bearer ")) {
+        // ✅ allow public endpoints
+        if (path.equals("/auth/login") || path.equals("/auth/register")) {
+            chain.doFilter(request, response);
+            return;
+        }
 
-	            String token = header.substring(7);
-	            String username = jwtUtil.extractUsername(token);
+        String header = request.getHeader("Authorization");
 
-	            if (username != null &&
-	                SecurityContextHolder.getContext().getAuthentication() == null) {
+        // 🔒 BLOCK if token missing
+        if (header == null || !header.startsWith("Bearer ")) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Unauthorized: Token missing");
+            return; 
+        }
+       
+        String token = header.substring(7);
+        String username = jwtUtil.extractUsername(token);
 
-	                UserDetails userDetails =
-	                        userDetailsService.loadUserByUsername(username);
+        if (username != null &&
+            SecurityContextHolder.getContext().getAuthentication() == null) {
 
-	                UsernamePasswordAuthenticationToken auth =
-	                        new UsernamePasswordAuthenticationToken(
-	                                userDetails, null, userDetails.getAuthorities());
+            UserDetails userDetails =
+                    userDetailsService.loadUserByUsername(username);
 
-	                auth.setDetails(
-	                        new WebAuthenticationDetailsSource().buildDetails(request));
+           
+            if (!jwtUtil.validateToken(token, userDetails)) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Unauthorized: Invalid token");
+                return;
+            }
 
-	                SecurityContextHolder.getContext().setAuthentication(auth);
-	            }
-	        }
+            UsernamePasswordAuthenticationToken auth =
+                    new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities());
 
-	        chain.doFilter(request, response);
-	    }
+            auth.setDetails(
+                    new WebAuthenticationDetailsSource()
+                            .buildDetails(request));
+
+            SecurityContextHolder.getContext()
+                    .setAuthentication(auth);
+        }
+
+        // ✅ only valid requests reach controller
+        chain.doFilter(request, response);
+    }
 }

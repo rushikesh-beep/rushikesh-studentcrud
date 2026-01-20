@@ -9,11 +9,11 @@ import com.cts.Model.Admin;
 import com.cts.Model.StudentInfo;
 
 @Repository
-public interface IadminRegistration extends MongoRepository<Admin ,  String> {
+public interface IadminRegistration extends MongoRepository<StudentInfo ,  String> {
 
 	
 	boolean existsByUsername(String username);
 	
-    Optional<Admin> findByUsername(String username);
+    Optional<StudentInfo> findByUsername(String username);
 	
 }
