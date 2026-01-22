@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html ng-app="studentModule">
+<head>
+    <title>Student List</title>
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <!-- YOUR CSS -->
+    <link rel="stylesheet"
+          href="resources/app/components/Css/student.css">
+
+    <!-- ANGULAR -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="studentController">
+
+<div class="container mt-4">
+
+    <h3 class="text-primary mb-3">Student List</h3>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>City</th>
+                <th>Course</th>
+                <th>Fees</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="s in students">
+                <td>{{s.name}}</td>
+                <td>{{s.city}}</td>
+                <td>{{s.course}}</td>
+                <td>{{s.fees}}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning"
+                            ng-click="editStudent(s)">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h4 class="text-success">Edit Student</h4>
+
+    <form class="row g-3" ng-submit="updateStudent()">
+
+        <input type="hidden" ng-model="selectedStudent.id">
+
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control"
+                   ng-model="selectedStudent.name">
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">City</label>
+            <input type="text" class="form-control"
+                   ng-model="selectedStudent.city">
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Course</label>
+            <input type="text" class="form-control"
+                   ng-model="selectedStudent.course">
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Fees</label>
+            <input type="number" class="form-control"
+                   ng-model="selectedStudent.fees">
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-primary">
+                Update Student
+            </button>
+        </div>
+
+    </form>
+	
+	
+	
+	
+
+	<form class="row g-3" ng-submit="saveStudent()">
+
+	    <input type="hidden" ng-model="selectedStudent.id">
+
+	    <div class="col-md-6">
+	        <label class="form-label">Name</label>
+	        <input type="text" class="form-control"
+	               ng-model="student.name">
+	    </div>
+
+	    <div class="col-md-6">
+	        <label class="form-label">City</label>
+	        <input type="text" class="form-control"
+	               ng-model="student.city">
+	    </div>
+
+	    <div class="col-md-6">
+	        <label class="form-label">Course</label>
+	        <input type="text" class="form-control"
+	               ng-model="selectedStudent.course">
+	    </div>
+
+	    <div class="col-md-6">
+	        <label class="form-label">Fees</label>
+	        <input type="number" class="form-control"
+	               ng-model="student.fees">
+	    </div>
+
+	    <div class="col-12">
+	        <button class="btn btn-primary">
+	            Save Student
+	        </button>
+	    </div>
+
+	</form>
+
+</div>
+
+<!-- YOUR JS -->
+<script src="resources/js/app/app.js"></script>
+<script src="resources/js/service/studentService.js"></script>
+<script src="resources/js/controller/studentController.js"></script>
+
+</body>
+</html>
