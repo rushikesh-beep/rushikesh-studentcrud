@@ -71,7 +71,7 @@
 	   this.viewProfiles=function(id)
 	   {
 		return $http.get(baseUrl +"/auth/getbyid/"+id)
-	   }
+	   } 
 	   
 	   
 	   var token = localStorage.getItem('token');
