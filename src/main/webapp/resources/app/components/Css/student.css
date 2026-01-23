@@ -43,3 +43,8 @@ tr:hover {
     color: #999;
     padding: 20px;
 }
+.ss
+{
+	  display: flex;
+    justify-content: flex-end;
+}

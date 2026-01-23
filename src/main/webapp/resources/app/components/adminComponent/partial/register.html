@@ -1,0 +1,52 @@
+
+    <!-- Students Table -->
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>City</th>
+                <th>Course</th>
+                <th>Fees</th>
+              
+                <th ng-if="isAdmin">Action</th>
+                 <th ng-if="isAdmin">Action</th>
+                   <th ng-if="isAdmin">View Profile</th>
+                  
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="s in students">
+                <td>{{s.name}}</td>
+                <td>{{s.city}}</td>
+                <td>{{s.course}}</td>
+                <td>{{s.fees}}</td>
+                    
+                <td      > 
+                    <!-- Edit Button -->
+                    <button   ng-if="isAdmin" type="button" class="btn btn-warning btn-sm"
+                            ng-click="editStudent(s)"
+                            data-bs-toggle="modal" data-bs-target="#editModal">
+                        Edit
+                    </button>
+                </td  >
+				
+				<td ng-if="isAdmin">
+				                  <!-- Edit Button -->
+				                  <button type="button" class="btn btn-danger btn-sm" ng-click="deleteStudent(s.id)"
+				                         
+				                         >
+				                      Delete
+				                  </button>
+				              </td>
+				              
+				              <td ng-if="isAdmin">
+				                  <!-- Edit Button -->
+				                  <button type="button"    data-bs-toggle="offcanvas" class="btn btn-primary btn-sm"data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+				                         ng-click="viewstudent(s)"
+				                         >
+				                      View Profile
+				                  </button>
+				              </td>
+            </tr>
+        </tbody>
+    </table>

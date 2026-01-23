@@ -1,5 +1,7 @@
 package com.cts.services;
 
+import java.util.Optional;
+
 import javax.naming.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,15 +86,27 @@ public RegistrationService(IadminRegistration adminrepo,
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
      
-        String token = jwtUtil.generateToken(admin.getUsername(),admin.getRole());
+        String token = jwtUtil.generateToken(admin.getUsername(),admin.getRole(),admin.getId());
 
        
         return new LoginResponce(
-                token,
-                admin.getUsername(),
-                admin.getRole()
+                token, admin.getUsername(),admin.getRole(),
+                admin.getId()
+               
+                
+                
+               
         );
     }
+
+
+    public StudentInfo GetStudentById(String id) {
+        return adminrepo.findById(id).orElse(null);
+    }
+
+
+
+
 	}
 
 	

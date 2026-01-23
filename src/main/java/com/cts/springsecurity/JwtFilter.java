@@ -35,16 +35,31 @@ public class JwtFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String path = request.getServletPath();
+        String method = request.getMethod();
 
-        // ✅ allow public endpoints
-        if (path.equals("/auth/login") || path.equals("/auth/register")) {
+        // ✅ 1️⃣ Allow CORS preflight
+        if ("OPTIONS".equalsIgnoreCase(method)) {
             chain.doFilter(request, response);
             return;
         }
 
+        // ✅ 2️⃣ Public endpoints (NO TOKEN)
+        if (
+            path.startsWith("/auth/") ||
+            path.equals("/") ||
+            path.equals("/index.jsp") ||
+            path.startsWith("/resources/") ||
+            path.startsWith("/app/") ||
+            path.endsWith(".js") ||
+            path.endsWith(".css") ||
+            path.endsWith(".html")
+        ) {
+            chain.doFilter(request, response);
+            return;
+        }
         String header = request.getHeader("Authorization");
 
-        // 🔒 BLOCK if token missing
+        
         if (header == null || !header.startsWith("Bearer ")) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("Unauthorized: Token missing");

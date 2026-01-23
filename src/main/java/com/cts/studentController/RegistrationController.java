@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cts.Model.Admin;
 import com.cts.Model.LoginRequest;
 import com.cts.Model.LoginResponce;
+import com.cts.Model.StudentInfo;
 import com.cts.Model.UserRegisterRequest;
 import com.cts.services.CustomUserDetailsService;
 import com.cts.services.RegistrationService;
@@ -45,5 +48,12 @@ public class RegistrationController {
 	 }
 	
 	
+	@GetMapping("/getbyid/{id}")
+	public StudentInfo  GetStudentById (@PathVariable   String id)
+	{
+		return registrationservice.GetStudentById(id);
+		
+		
+	}
 }
 	
