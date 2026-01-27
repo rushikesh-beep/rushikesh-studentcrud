@@ -93,4 +93,41 @@
 		  this.logout = function() {
 		         $window.sessionStorage.removeItem('jwtToken');
 		     };    
+			 
+			 this.complaints = function(complaint){
+			  	var token = $window.sessionStorage.getItem("jwtToken"); // match storeTokenx	
+			     return $http.post(baseUrl + "/complaintbox/complaint", complaint, {
+			         headers: {
+			             'Authorization': 'Bearer ' + token,
+			             'Content-Type': 'application/json'
+			         }
+			     });
+			 }
+			 this.getcommplaint = function() {
+			     var token = $window.sessionStorage.getItem("jwtToken");
+			     return $http.get(baseUrl + "/complaintbox/getcomplaint", {
+			         headers: {
+			             'Authorization': 'Bearer ' + token,
+			             'Content-Type': 'application/json'
+			         }
+			     });
+			 };
+			 this.UpdateComplaint = function (id, complaintvalue) {
+			     var token = $window.sessionStorage.getItem("jwtToken");
+			     return $http.put(
+			         baseUrl + "/complaintbox/updatestatus/" + id,
+			         complaintvalue, // this is the data being sent
+			         {
+			             headers: {
+			                 'Authorization': 'Bearer ' + token,
+			                 'Content-Type': 'application/json'
+			             }
+			         }
+			     );
+			 };
+
+
+		 
+			 
+			 
 	});

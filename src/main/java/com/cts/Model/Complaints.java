@@ -24,6 +24,10 @@ public class Complaints {
 				+ ", complaintDescription=" + complaintDescription + ", status=" + status + ", adminComment="
 				+ adminComment + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
+	public Complaints() {}
+	
+	
+	
 	public String getId() {
 		return id;
 	}

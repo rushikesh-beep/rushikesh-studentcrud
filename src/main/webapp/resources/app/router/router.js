@@ -10,6 +10,13 @@ angular.module("myApp")
 		            templateUrl: "resources/app/components/studentComponent/partials/student.html",
 		            controller: "studentController"
 		        })
+				.when("/complaint", {
+						            templateUrl: "resources/app/components/Complaint/partials/complaint.html",
+						            controller: "complaintController"
+						        })
+				
+				
+				
         .otherwise({
             redirectTo: "/home"
         });

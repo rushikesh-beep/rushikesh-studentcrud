@@ -9,4 +9,6 @@ import com.cts.Model.StudentInfo;
 @Repository
 public interface IcomplaintsRepo extends MongoRepository<Complaints ,   String>  {
 
+	
+	
 }

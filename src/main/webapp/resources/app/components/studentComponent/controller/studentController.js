@@ -2,6 +2,7 @@ angular.module("studentModule")
 .controller("studentController", function ($scope, studentService,$location) {
 
     $scope.students = [];
+
     $scope.selectedStudent = {};
 	var role = studentService.getRole();
 	$scope.student = {}; 
@@ -9,16 +10,18 @@ angular.module("studentModule")
 	$scope.Admin={};
 	$scope.viewProfile = {};
 	$scope.profile = {};
+	
+	$scope.complaint={};
 	 $scope.userid= studentService.getUserId()
 	  console.log("Logged-in user ID:",  $scope.userid);
 	
     function loadStudents() {
         studentService.getStudents().then(function (res) {
 			if (role === "ROLE_ADMIN") {
-			          // ✅ ADMIN sees everything
+			     
 			          $scope.students = res.data;
 			      } else {
-			          // ✅ USER sees only USER
+			       
 			          $scope.students = res.data.filter(function (s) {
 			              return s.role === "ROLE_USER";
 			          });
@@ -74,7 +77,7 @@ angular.module("studentModule")
 	                  $scope.loadStudents();  // refresh table
 	              });
 
-	          $scope.loadStudents();  // ❌ this runs immediately
+	          $scope.loadStudents(); 
 	      }
 	  };
 
@@ -108,5 +111,13 @@ angular.module("studentModule")
 			 $location.path("/home");
 	     };
 	  
-	
+		 $scope.addcomplaint=function()
+		 {
+			studentService.complaints($scope.complaint).then(function(){
+				
+				
+				
+			})
+		 }
+		
 });

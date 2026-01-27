@@ -33,7 +33,7 @@ public class JwtUtil {
 	                .setSubject(username)
 	                .setIssuedAt(new Date())
 	                .setExpiration(
-	                        new Date(System.currentTimeMillis() + 60 * 60 * 1000)) // 1 hour
+	                        new Date(System.currentTimeMillis() + 60 * 60 * 100000)) // 1 hour
 	                .signWith(key, SignatureAlgorithm.HS256)
 	                .compact();
 	    }

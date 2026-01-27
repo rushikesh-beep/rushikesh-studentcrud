@@ -1,0 +1,91 @@
+<div class="complaint-component">
+
+
+
+
+<div class="container">
+
+
+<div class="row">
+<div class="col-5	">
+
+
+<div class="card" style="width: 35rem;">
+ 
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    
+    <div class="row">
+  <div class="col-md-4  w-100" ng-repeat="c in seecomplains">
+
+    <div class="card">
+      <div class="card-body">
+
+        <h5 class="card-title">
+          {{ c.complaintTitle }}
+        </h5>
+
+        <p class="card-text">
+          {{ c.complaintDescription }}
+        </p>
+
+        <!-- Admin comment -->
+        <p ng-if="c.adminComment">
+          <strong>Admin Comment:</strong> {{ c.adminComment }}
+        </p>
+
+        <!-- Status -->
+        <span class="badge bg-warning" ng-if="c.status=='PENDING'">Pending</span>
+        <span class="badge bg-success" ng-if="c.status=='SOLVED'">Solved</span>
+        <span class="badge bg-danger" ng-if="c.status=='DECLINED'">Declined</span>
+  <button ng-click="updatecomplaints(c.id)" > skjdjgf</button>
+ <input ng-if="c.status == 'DECLINE'" ng-model="updatestatus.admincomment" placeholder="Add admin comment">
+
+  
+    <select ng-model="updatestatus.status" ng-options="status for status in statusOptions">
+        <option value="">--Select Status--</option>
+    </select>
+
+    <button ng-click="updatecomplaints(c.id)">Update Status</button>
+  
+  
+        <!-- ADMIN ACTIONS -->
+        <div ng-if="isAdmin" class="mt-2">
+          <textarea class="form-control mb-2"
+                    ng-model="c.adminComment"
+                    placeholder="Admin comment"></textarea>
+
+          <button class="btn btn-success btn-sm"
+                  ng-click="updateStatus(c.id, 'SOLVED', c.adminComment)">
+            Solve
+          </button>
+
+          <button class="btn btn-warning btn-sm"
+                  ng-click="updateStatus(c.id, 'PROCESSING', c.adminComment)">
+            Process
+          </button>
+
+          <button class="btn btn-danger btn-sm"
+                  ng-click="updateStatus(c.id, 'DECLINED', c.adminComment)">
+            Decline
+          </button>
+        
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+    
+    
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+ </div>
+
+ </div>
+</div>
+
+</div>

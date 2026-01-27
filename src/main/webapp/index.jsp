@@ -28,6 +28,13 @@
 	<script src="resources/app/components/studentComponent/student.module.js"></script>
 	<script src="resources/app/components/studentComponent/controller/studentController.js"></script>
 	
+	<script src="resources/app/components/Complaint/complaint.module.js"></script>
+	<script src="resources/app/components/Complaint/controller/compliantController.js"></script>
+
+
+	
+	
+	
 	<script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
 	
 	<script src="resources/app/service/studentService.js"></script>
