@@ -21,7 +21,7 @@ angular.module('studentModule').directive('navbar', function () {
 			          <a class="nav-link" href="#">Pricing</a>
 			        </li>
 					
-					<li class="nav-item">
+					<li  ng-if="isAdmin"  class="nav-item">
 					<a class="nav-link" href="#!/complaint">View Complaint</a>
 
 								        </li>
@@ -30,8 +30,9 @@ angular.module('studentModule').directive('navbar', function () {
 			            Compliant Box
 			          </a>
 			          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal22">Add Complaint</a></li>
-			            <li><a class="dropdown-item" href="#">Another action</a></li>
+			            <li  ><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal22">Add Complaint</a></li>
+						
+			            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal33">Complaint Status</a></li>
 			            <li><a class="dropdown-item" href="#">Something else here</a></li>
 			          </ul>
 			        </li>

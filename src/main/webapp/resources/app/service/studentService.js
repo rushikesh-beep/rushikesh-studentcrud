@@ -126,7 +126,10 @@
 			     );
 			 };
 
-
+this.deleteComplaint=function(id)
+{
+	return $http.delete(baseUrl+"/complaintbox/delete"+id)
+}
 		 
 			 
 			 

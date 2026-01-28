@@ -7,11 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.Model.ComplaintDto;
+import com.cts.Model.ComplaintResponceDTO;
 import com.cts.Model.Complaints;
+import com.cts.Model.StudentInfo;
 import com.cts.Repository.IcomplaintsRepo;
+import com.cts.Repository.IstudentRepo;
 
 @Service
 public class ComplaintService {
+	
+
+    @Autowired
+    private IstudentRepo studentrepo;
+
      @Autowired
 	private IcomplaintsRepo complaintrepo;
 	
@@ -21,10 +29,53 @@ public class ComplaintService {
 		return complaintrepo.save(complaints);
 	}
 
-	public List<Complaints> getComplaints() {
-	
-		return complaintrepo.findAll();
+	public List<ComplaintResponceDTO> getComplaints() {
+
+	    List<Complaints> complaints = complaintrepo.findAll();
+
+	    return complaints.stream().map(c -> {
+
+	        ComplaintResponceDTO dto = new ComplaintResponceDTO();
+
+	        dto.setComplaintId(c.getId());
+	        dto.setComplaintTitle(c.getComplaintTitle());
+	        dto.setComplaintDescription(c.getComplaintDescription());
+	        dto.setStatus(c.getStatus());
+	        dto.setAdminComment(c.getAdminComment());
+	        dto.setCreatedAt(c.getCreatedAt());
+	        dto.setUpdatedAt(c.getUpdatedAt());
+
+	        
+	        if (c.getUserId() != null && !c.getUserId().isBlank()) {
+
+	            studentrepo.findById(c.getUserId())
+	            
+	            //Problem Is Here
+	                       .ifPresent(s -> dto.setStudentName(s.getName()));
+
+	        } else {
+	            dto.setStudentName("Unknown");
+	        }
+
+	        return dto;
+
+	    }).toList();
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public Complaints UpdateComlaint(String id, ComplaintDto complaindto) {
 		
@@ -37,6 +88,14 @@ public class ComplaintService {
 		
 		
 		return complaintrepo.save(c);
+	}
+
+	public Complaints ComplaineDelete(String id) {
+		 Complaints c = complaintrepo.findById(id)
+                 .orElseThrow(() -> new RuntimeException("Not found"));
+complaintrepo.deleteById(id);
+return c; 
+		
 	}
 
 }
