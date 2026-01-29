@@ -13,7 +13,7 @@ public class ComplaintResponceDTO {
 	    private LocalDateTime createdAt;
 	    private LocalDateTime updatedAt;
 
-	    private String studentName;
+	    private String name;
 	    private String department;
 		public String getComplaintId() {
 			return complaintId;
@@ -58,10 +58,10 @@ public class ComplaintResponceDTO {
 			this.updatedAt = updatedAt;
 		}
 		public String getStudentName() {
-			return studentName;
+			return name;
 		}
 		public void setStudentName(String studentName) {
-			this.studentName = studentName;
+			this.name = studentName;
 		}
 		public String getDepartment() {
 			return department;
@@ -74,7 +74,7 @@ public class ComplaintResponceDTO {
 			return "ComplaintResponceDTO [complaintId=" + complaintId + ", complaintTitle=" + complaintTitle
 					+ ", complaintDescription=" + complaintDescription + ", status=" + status + ", adminComment="
 					+ adminComment + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", studentName="
-					+ studentName + ", department=" + department + "]";
+					+ name + ", department=" + department + "]";
 		}
 		public ComplaintResponceDTO(String complaintId, String complaintTitle, String complaintDescription,
 				String status, String adminComment, LocalDateTime createdAt, LocalDateTime updatedAt,
@@ -87,7 +87,7 @@ public class ComplaintResponceDTO {
 			this.adminComment = adminComment;
 			this.createdAt = createdAt;
 			this.updatedAt = updatedAt;
-			this.studentName = studentName;
+			this.name = studentName;
 			this.department = department;
 		}
 

@@ -123,7 +123,7 @@
 			                 'Content-Type': 'application/json'
 			             }
 			         }
-			     );
+			  ); 
 			 };
 
 this.deleteComplaint=function(id)
@@ -131,6 +131,15 @@ this.deleteComplaint=function(id)
 	return $http.delete(baseUrl+"/complaintbox/delete"+id)
 }
 		 
-			 
+
+this.UserComplaint=function(id)
+{              var token = $window.sessionStorage.getItem("jwtToken");
+	return $http.get(baseUrl+"/complaintbox/getcomplaintbyId/"+id,{
+		         headers: {
+		             'Authorization': 'Bearer ' + token,
+		             'Content-Type': 'application/json'
+		         }
+		     })
+}	 
 			 
 	});

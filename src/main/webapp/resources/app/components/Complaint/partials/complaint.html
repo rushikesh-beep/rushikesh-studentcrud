@@ -3,18 +3,19 @@
 <div class="col-5">
 
 <div class="complaint mb-2  " 
-     ng-repeat="c in seecomplains track by c.complaintId">
+     >
 
-  <div  class="card shadow-sm h-100">
+  <div  ng-repeat="c in seecomplains track by c.complaintId"  class="card shadow-sm h-100">
 
     <div  ng-if="c.status !== 'RESOLVED'"  class="card-body d-flex flex-column">
 
       <!-- Title -->
       <h5 class="card-title fw-bold">
-        {{ c.complaintTitle }}
-         {{ c.name }}
+      
+         {{ c.studentName }}
       </h5>
 
+      {{ c.complaintTitle }}
       <!-- Description -->
       <p class="card-text text-muted">
         {{ c.complaintDescription }}

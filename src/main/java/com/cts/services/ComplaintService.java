@@ -50,30 +50,17 @@ public class ComplaintService {
 
 	            studentrepo.findById(c.getUserId())
 	            
-	            //Problem Is Here
+	            
 	                       .ifPresent(s -> dto.setStudentName(s.getName()));
 
 	        } else {
 	            dto.setStudentName("Unknown");
 	        }
 
-	        return dto;
+	        return dto;	
 
 	    }).toList();
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}  
 	
 	
 
@@ -82,7 +69,7 @@ public class ComplaintService {
 		
 		Complaints c = complaintrepo.findById(id).   orElseThrow(() -> new RuntimeException("Complaint not found"));;
 		
-		c.setAdminComment(complaindto.getAdmincomment());
+		c.setAdminComment(complaindto.getAdminComment());
 		c.setStatus(complaindto.getStatus());
 		c.setUpdatedAt(complaindto.getUpdatedAt());
 		
@@ -96,6 +83,11 @@ public class ComplaintService {
 complaintrepo.deleteById(id);
 return c; 
 		
+	}
+
+	public List<Complaints> GetComplaintsByUserId(String userId) {
+	
+		return complaintrepo.findByUserId(userId);
 	}
 
 }

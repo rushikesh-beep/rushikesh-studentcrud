@@ -5,15 +5,15 @@ import java.time.LocalDateTime;
 public class ComplaintDto {
 	
 	
-	public ComplaintDto(String status, String admincomment, LocalDateTime updatedAt) {
+	public ComplaintDto(String status, String adminComment, LocalDateTime updatedAt) {
 		super();
 		this.status = status;
-		this.admincomment = admincomment;
+		this.adminComment = adminComment;
 		this.updatedAt = updatedAt;
 	}
 	@Override
 	public String toString() {
-		return "ComplaintDto [status=" + status + ", admincomment=" + admincomment + ", updatedAt=" + updatedAt + "]";
+		return "ComplaintDto [status=" + status + ", admincomment=" + adminComment + ", updatedAt=" + updatedAt + "]";
 	}
 	
 	  public ComplaintDto() {
@@ -24,11 +24,11 @@ public class ComplaintDto {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getAdmincomment() {
-		return admincomment;
+	public String getAdminComment() {
+		return adminComment;
 	}
-	public void setAdmincomment(String admincomment) {
-		this.admincomment = admincomment;
+	public void setAdminComment(String adminComment) {
+		this.adminComment = adminComment;
 	}
 	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
@@ -37,7 +37,7 @@ public class ComplaintDto {
 		this.updatedAt = updatedAt;
 	}
 	private String status ;
-	private String admincomment;
+	private String adminComment;
     private LocalDateTime updatedAt;
 
 }

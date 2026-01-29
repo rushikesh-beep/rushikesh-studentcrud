@@ -2,7 +2,7 @@ angular.module("studentModule")
 .controller("studentController", function ($scope, studentService,$location) {
 
     $scope.students = [];
-
+$scope.seecomplains=[]
     $scope.selectedStudent = {};
 	var role = studentService.getRole();
 	$scope.student = {}; 
@@ -112,12 +112,27 @@ angular.module("studentModule")
 	     };
 	  
 		 $scope.addcomplaint=function()
-		 {
+		 { $scope.complaint.userId=$scope.userid;
 			studentService.complaints($scope.complaint).then(function(){
 				
 				
 				
 			})
 		 }
+	
 		
+			
+			
+			
+			$scope.ViewComplaintById=function()
+			  {
+				studentService.UserComplaint($scope.userid).then(function(res){
+					
+					$scope.seecomplains=res.data;
+					
+				})
+			  }
+			  
+			  $scope.ViewComplaintById();
+
 });

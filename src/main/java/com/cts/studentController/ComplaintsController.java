@@ -47,5 +47,9 @@ public class ComplaintsController {
 	{
 		return complaint.ComplaineDelete(id);
 	}
-	
+   	@GetMapping("/getcomplaintbyId/{userId}")
+       public List<Complaints> GetComplaintsByUserId(@PathVariable String userId)
+       {
+    	   return complaint.GetComplaintsByUserId(userId);
+       }
 }

@@ -25,7 +25,7 @@ angular.module('studentModule').directive('navbar', function () {
 					<a class="nav-link" href="#!/complaint">View Complaint</a>
 
 								        </li>
-			        <li class="nav-item dropdown">
+			        <li  ng-if="!isAdmin" class="nav-item dropdown">
 			          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 			            Compliant Box
 			          </a>
